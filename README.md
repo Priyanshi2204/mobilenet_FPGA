@@ -34,37 +34,38 @@ The design is highly parameterized to balance throughput and resource utilizatio
 The RTL is organized into functional sub-directories to separate memory, compute, and control logic.
 
 ```text
-/rtl
+/rtl                             # Top Level Directory
 ├── top.v                        # System-level integration
 ├── axi_control.v                # Slave register file (CPU Config)
 ├── cnn_accelerator.v            # Main accelerator core logic
 │
-├── /memory                      # Storage & Buffering
+├── /memory                      # Storage & Buffering Directory
 │   ├── ifm_buffer.v             # Input Feature Map storage
 │   ├── ofm_buffer.v             # Output Feature Map storage
 │   ├── weight_buffer.v          # Kernel weight storage
 │   ├── psum_buffer.v            # Partial sum storage
 │   └── pingpong_buffer.v        # Logic for overlapping I/O & Compute
 │
-├── /compute                     # Arithmetic Pipeline
+├── /compute                     # Arithmetic Pipeline Directory
 │   ├── mac_unit.v               # Single Multiply-Accumulate block
 │   ├── mac_array.v              # 2D processing element array
 │   ├── adder_tree.v             # High-speed summation tree
 │   ├── quantizer.v              # Scaling and rounding logic
 │   └── relu6.v                  # Non-linear activation unit
 │
-├── /dataflow                    # Sequencing & Stream Control
+├── /dataflow                    # Sequencing & Stream Control Directory
 │   ├── sliding_window.v         # Line-to-window conversion logic
 │   ├── line_buffer.v            # Internal delay lines for convolution
 │   └── channel_interleaver.v    # Data alignment logic
 │
-├── /controller                  # State Machines (FSMs)
+├── /controller                  # State Machines Directory
 │   ├── tile_controller.v        # Local tile execution control
 │   ├── fold_controller.v        # Channel folding management
 │   ├── layer_controller.v       # Global layer-to-layer sequencing
 │   └── dma_controller.v         # AXI Master transaction logic
 │
-└── /interfaces                  # External Communication
+└── /interfaces                  # External Communication Directory
     ├── axi_master_ifm.v         # DMA for Input Features
     ├── axi_master_weight.v      # DMA for Weights
     └── axi_master_ofm.v         # DMA for Output Features
+
