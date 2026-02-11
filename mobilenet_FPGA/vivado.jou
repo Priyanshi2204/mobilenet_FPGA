@@ -23,3 +23,8 @@
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/mobilenet_FPGA.xpr
+update_compile_order -fileset sources_1
+close [ open C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_32x16.v w ]
+add_files C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_32x16.v
+update_compile_order -fileset sources_1
+add_files -norecurse C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_32x16.v

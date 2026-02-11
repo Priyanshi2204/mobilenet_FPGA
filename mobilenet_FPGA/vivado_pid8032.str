@@ -152,3 +152,168 @@ Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // HMemoryUtils.trashcanNow. Engine heap size: 1,030 MB. GUI used memory: 76 MB. Current time: 2/12/26, 1:14:57 AM IST
 // [Engine Memory]: 1,072 MB (+17588kb) [00:01:14]
 // [GUI Memory]: 152 MB (+20823kb) [00:01:14]
+// Project name: mobilenet_FPGA; location: C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA; part: xc7z020clg484-1
+// Tcl Message: open_project: Time (s): cpu = 00:01:00 ; elapsed = 00:00:35 . Memory (MB): peak = 1696.383 ; gain = 292.375 
+dismissDialog("Open Project"); // bk (Open Project Progress)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints]", 0); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE)
+// TclEventType: DG_GRAPH_GENERATED
+// Tcl Message: update_compile_order -fileset sources_1 
+selectButton(PAResourceCommand.PACommandNames_ADD_SOURCES, "Sources_add_sources"); // C (PAResourceCommand.PACommandNames_ADD_SOURCES, Sources_add_sources)
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+selectButton("NEXT", "Next", "Add Sources"); // JButton (NEXT)
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_DIRECTORIES, "Add Directories", "Add Sources"); // a (PAResourceQtoS.SrcChooserPanel_ADD_DIRECTORIES)
+setFolderChooser("C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier");
+// HMemoryUtils.trashcanNow. Engine heap size: 1,076 MB. GUI used memory: 75 MB. Current time: 2/12/26, 1:15:16 AM IST
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT, "Add Files", "Add Sources"); // a (PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT)
+dismissFileChooser();
+selectButton(PAResourceQtoS.SrcChooserPanel_CREATE_FILE, "Create File", "Add Sources"); // a (PAResourceQtoS.SrcChooserPanel_CREATE_FILE)
+selectComboBox(PAResourceAtoD.CreateSrcFileDialog_FILE_LOCATION, "File location:", "Choose Location...", 1); // d (PAResourceAtoD.CreateSrcFileDialog_FILE_LOCATION, File location:)
+setFolderChooser("C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier");
+setText(PAResourceAtoD.CreateSrcFileDialog_FILE_NAME, "multiplier_32x16"); // ad (PAResourceAtoD.CreateSrcFileDialog_FILE_NAME)
+selectButton(RDIResource.BaseDialog_OK, "OK", "Create Source File"); // f (RDIResource.BaseDialog_OK)
+dismissDialog("Create Source File"); // l (dialog3)
+selectButton("FINISH", "Finish", "Add Sources"); // JButton (FINISH)
+// 'f' command handler elapsed time: 33 seconds
+dismissDialog("Add Sources"); // d (dialog0)
+// Tcl Message: close [ open C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_32x16.v w ] 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: add_files C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_32x16.v 
+selectButton(RDIResource.BaseDialog_OK, "OK", "Define Module"); // f (RDIResource.BaseDialog_OK)
+// TclEventType: FILE_SET_CHANGE
+selectButton("OptionPane.button", "Yes", "Define Module"); // JButton (OptionPane.button)
+dismissDialog("Define Module"); // o (dialog5)
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 52s
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 54s
+// Tcl Message: update_compile_order -fileset sources_1 
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 56s
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 58s
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 01m:00s
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 01m:02s
+// HMemoryUtils.trashcanNow. Engine heap size: 1,076 MB. GUI used memory: 77 MB. Current time: 2/12/26, 1:15:56 AM IST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,076 MB. GUI used memory: 79 MB. Current time: 2/12/26, 1:16:36 AM IST
+// Elapsed time: 73 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Non-module Files]", 2); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE)
+selectButton(PAResourceCommand.PACommandNames_ADD_SOURCES, "Sources_add_sources"); // C (PAResourceCommand.PACommandNames_ADD_SOURCES, Sources_add_sources)
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+selectButton("NEXT", "Next", "Add Sources"); // JButton (NEXT)
+selectButton(PAResourceQtoS.SrcChooserPanel_CREATE_FILE, "Create File", "Add Sources"); // a (PAResourceQtoS.SrcChooserPanel_CREATE_FILE)
+setText(PAResourceAtoD.CreateSrcFileDialog_FILE_NAME, (String) null); // ad (PAResourceAtoD.CreateSrcFileDialog_FILE_NAME)
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel", "Create Source File"); // f (RDIResource.BaseDialog_CANCEL)
+dismissDialog("Create Source File"); // l (dialog7)
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT, "Add Files", "Add Sources"); // a (PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT)
+setFileChooser("C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_32x16.v");
+selectButton("FINISH", "Finish", "Add Sources"); // JButton (FINISH)
+// 'f' command handler elapsed time: 9 seconds
+dismissDialog("Add Sources"); // d (dialog6)
+// Tcl Message: add_files -norecurse C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_32x16.v 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,076 MB. GUI used memory: 80 MB. Current time: 2/12/26, 1:17:17 AM IST
+// Elapsed time: 15 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, quantizer (quantizer.v)]", 11); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE)
+// PAPropertyPanels.initPanels (multiplier_32x16.v) elapsed time: 0.2s
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, quantizer (quantizer.v), multiplier_32x16 (multiplier_32x16.v)]", 12, false); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, quantizer (quantizer.v), multiplier_32x16 (multiplier_32x16.v)]", 12, false, false, false, false, false, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Double Click
+// Elapsed time: 10 seconds
+selectCodeEditor("multiplier_32x16.v", 96, 328); // ae (multiplier_32x16.v)
+typeControlKey((HResource) null, "multiplier_32x16.v", 'v'); // ae (multiplier_32x16.v)
+selectCodeEditor("multiplier_32x16.v", 355, 215); // ae (multiplier_32x16.v)
+selectCodeEditor("multiplier_32x16.v", 482, 261); // ae (multiplier_32x16.v)
+selectCodeEditor("multiplier_32x16.v", 344, 246); // ae (multiplier_32x16.v)
+selectCodeEditor("multiplier_32x16.v", 554, 242); // ae (multiplier_32x16.v)
+selectCodeEditor("multiplier_32x16.v", 561, 266); // ae (multiplier_32x16.v)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,077 MB. GUI used memory: 80 MB. Current time: 2/12/26, 1:17:57 AM IST
+selectCodeEditor("multiplier_32x16.v", 2, 305); // ae (multiplier_32x16.v)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("multiplier_32x16.v", 197, 11); // ae (multiplier_32x16.v)
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 03m:12s
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 03m:14s
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_STALE
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 03m:16s
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 03m:18s
+// Elapsed time: 10 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files]", 1, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files]", 1, true, false, false, false, false, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Double Click - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files]", 1, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files, quantizer.v]", 2, false); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files, quantizer.v]", 2, false, false, false, false, false, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Double Click
+selectCodeEditor("quantizer.v", 173, 123); // ae (quantizer.v)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "multiplier_32x16.v", 1); // m (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectCodeEditor("multiplier_32x16.v", 121, 31); // ae (multiplier_32x16.v)
+selectCodeEditor("multiplier_32x16.v", 121, 31, false, false, false, false, true); // ae (multiplier_32x16.v) - Double Click
+typeControlKey((HResource) null, "multiplier_32x16.v", 'c'); // ae (multiplier_32x16.v)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "quantizer.v", 2); // m (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectCodeEditor("quantizer.v", 167, 118); // ae (quantizer.v)
+selectCodeEditor("quantizer.v", 167, 118, false, false, false, false, true); // ae (quantizer.v) - Double Click
+typeControlKey((HResource) null, "quantizer.v", 'v'); // ae (quantizer.v)
+selectCodeEditor("quantizer.v", 674, 111); // ae (quantizer.v)
+selectCodeEditor("quantizer.v", 674, 111, false, false, false, false, true); // ae (quantizer.v) - Double Click
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 03m:42s
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 03m:44s
+// HMemoryUtils.trashcanNow. Engine heap size: 1,083 MB. GUI used memory: 83 MB. Current time: 2/12/26, 1:18:37 AM IST
+// Tcl Message: ERROR: [Common 17-180] Spawn failed: The operation completed successfully.  
+// Elapsed time: 10 seconds
+selectCodeEditor("quantizer.v", 520, 170); // ae (quantizer.v)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files]", 1, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files]", 1, true, false, false, false, false, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Double Click - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files]", 1, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Node
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files]", 1); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files, quantizer.v]", 2, false); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Syntax Error Files, quantizer.v]", 2, false, false, false, false, false, true); // E (PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE) - Double Click
+selectCodeEditor("quantizer.v", 359, 155); // ae (quantizer.v)
+selectButton(PAResourceEtoH.FileSetPanel_MESSAGES, "2"); // h (PAResourceEtoH.FileSetPanel_MESSAGES)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Analysis Results, sources_1, [HDL 9-1206] Syntax error near 'multiplier_32x16' [C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v:27]. ]", 3, false); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "multiplier_32x16.v", 1); // m (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectCodeEditor("multiplier_32x16.v", 188, 68); // ae (multiplier_32x16.v)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "quantizer.v", 2); // m (PlanAheadTabBaseWorkspace_JideTabbedPane)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,083 MB. GUI used memory: 81 MB. Current time: 2/12/26, 1:19:17 AM IST
+// Elapsed time: 23 seconds
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Analysis Results, sources_1, [HDL 9-1206] Syntax error near 'multiplier_32x16' [C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v:27]. ]", 3, false); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE)
+messagesViewCrossProbe(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "src;-;C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\codes\compute\quantizer.v;-;;-;16;-;line;-;27;-;;-;16;-;"); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "multiplier_32x16.v", 1); // m (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "quantizer.v", 2); // m (PlanAheadTabBaseWorkspace_JideTabbedPane)
+// Elapsed time: 16 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "multiplier_32x16.v", 1); // m (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "quantizer.v", 2); // m (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "multiplier_32x16.v", 1); // m (PlanAheadTabBaseWorkspace_JideTabbedPane)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,098 MB. GUI used memory: 81 MB. Current time: 2/12/26, 1:19:57 AM IST
+typeControlKey((HResource) null, "multiplier_32x16.v", 'c'); // ae (multiplier_32x16.v)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "quantizer.v", 2); // m (PlanAheadTabBaseWorkspace_JideTabbedPane)
+selectCodeEditor("quantizer.v", 345, 69); // ae (quantizer.v)
+typeControlKey((HResource) null, "quantizer.v", 'c'); // ae (quantizer.v)
+selectCodeEditor("quantizer.v", 329, 120); // ae (quantizer.v)
+// Elapsed time: 12 seconds
+selectCodeEditor("quantizer.v", 325, 178); // ae (quantizer.v)
+typeControlKey((HResource) null, "quantizer.v", 'v'); // ae (quantizer.v)
+selectCodeEditor("quantizer.v", 456, 195); // ae (quantizer.v)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 05m:34s
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed Time for: 'PAResourceItoN.MsgLongTask_MESSAGE_LONG_TASK/M.f': 05m:36s
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Vivado Commands, General Messages, [Common 17-180] Spawn failed: The operation completed successfully.. . ]", 2, false); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Vivado Commands, General Messages, [Common 17-180] Spawn failed: The operation completed successfully.. . ]", 2, false, false, false, false, false, true); // u.d (PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE) - Double Click
+selectCodeEditor("quantizer.v", 304, 98); // ae (quantizer.v)
+selectCodeEditor("quantizer.v", 397, 97); // ae (quantizer.v)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "multiplier_32x16.v", 1); // m (PlanAheadTabBaseWorkspace_JideTabbedPane)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,098 MB. GUI used memory: 81 MB. Current time: 2/12/26, 1:20:38 AM IST
+selectCodeEditor("multiplier_32x16.v", 244, 104); // ae (multiplier_32x16.v)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "quantizer.v", 2); // m (PlanAheadTabBaseWorkspace_JideTabbedPane)
