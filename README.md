@@ -4,7 +4,7 @@ A high-performance, tiled CNN accelerator designed for FPGA/ASIC deployment. Thi
 
 ## ⚙️ Hardware Parameters
 
-The design is highly parameterized to balance throughput and resource utilization. These values are defined as hardware constants:
+The design is highly parameterised to balance throughput and resource utilisation. These values are defined as hardware constants:
 
 ### Data & Bus Widths
 | Parameter | Value | Description |
@@ -65,7 +65,10 @@ The RTL is organized into functional sub-directories to separate memory, compute
 │   └── dma_controller.v         # AXI Master transaction logic
 │
 └── /interfaces                  # External Communication Directory
-    ├── axi_master_ifm.v         # DMA for Input Features
-    ├── axi_master_weight.v      # DMA for Weights
-    └── axi_master_ofm.v         # DMA for Output Features
+|    ├── axi_master_ifm.v         # DMA for Input Features
+|    ├── axi_master_weight.v      # DMA for Weights
+|    └── axi_master_ofm.v         # DMA for Output Features
+│
+└── /multiplier                  # Defining the kind of multipliers
+|    ├── multiplier_32x16.v      # Multiplier for 32 bit x 16 bit
 
