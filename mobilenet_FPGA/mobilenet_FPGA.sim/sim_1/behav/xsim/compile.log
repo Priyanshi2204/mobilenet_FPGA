@@ -1,4 +1,4 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/memory/weight_buffer.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module weight_buffer
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/mobilenet_FPGA.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_48x24.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module multiplier_48x24
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module quantizer

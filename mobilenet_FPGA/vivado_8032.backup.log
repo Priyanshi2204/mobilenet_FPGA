@@ -3,10 +3,10 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Thu Feb 12 20:30:21 2026
-# Process ID         : 32644
+# Start of session at: Thu Feb 12 01:13:10 2026
+# Process ID         : 8032
 # Current directory  : C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA
-# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent32692 C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\mobilenet_FPGA.xpr
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent3808 C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\mobilenet_FPGA.xpr
 # Log file           : C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/vivado.log
 # Journal file       : C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA\vivado.jou
 # Running On         : epics2-iitgoa
@@ -19,7 +19,7 @@
 # Host memory        : 16849 MB
 # Swap memory        : 10200 MB
 # Total Virtual      : 27049 MB
-# Available Virtual  : 10894 MB
+# Available Virtual  : 10305 MB
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/mobilenet_FPGA.xpr
@@ -130,4 +130,24 @@ INFO: [Common 17-14] Message 'Board 49-26' appears 100 times and further instanc
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Vivado/2025.2/Vivado/data/ip'.
-open_project: Time (s): cpu = 00:00:15 ; elapsed = 00:00:11 . Memory (MB): peak = 1677.438 ; gain = 125.250
+open_project: Time (s): cpu = 00:01:00 ; elapsed = 00:00:35 . Memory (MB): peak = 1696.383 ; gain = 292.375
+update_compile_order -fileset sources_1
+close [ open C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_32x16.v w ]
+add_files C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_32x16.v
+update_compile_order -fileset sources_1
+add_files -norecurse C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_32x16.v
+WARNING: [filemgmt 56-12] File 'C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_32x16.v' cannot be added to the project because it already exists in the project, skipping this file
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\codes\multiplier\multiplier_32x16.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\codes\compute\quantizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\codes\compute\quantizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\codes\compute\quantizer.v:]
+ERROR: [Common 17-180] Spawn failed: The operation completed successfully.
+
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\codes\multiplier\multiplier_32x16.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\codes\compute\quantizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\codes\compute\quantizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\codes\compute\quantizer.v:]
+ERROR: [Common 17-180] Spawn failed: The operation completed successfully.
+
+exit
+INFO: [Common 17-206] Exiting Vivado at Thu Feb 12 01:22:28 2026...

@@ -1,13 +1,15 @@
-module relu6 (
-    input  wire signed [31:0] data_in,
-    output wire signed [31:0] data_out
+module relu6 #(
+    parameter DATA_W = 16,
+    parameter FRAC_W = 8
+)(
+    input  wire signed [DATA_W-1:0] data_in,
+    output wire signed [DATA_W-1:0] data_out
 );
 
-    // The integer representation of '6.0' in your quantized space.
-    // Example: If using Q16.16, this would be 6 << 16.
-    parameter signed [31:0] SIX_QUANTIZED = 32'd6; 
+    localparam signed [DATA_W-1:0] SIX_QUANTIZED = 6 <<< FRAC_W;
 
-    assign data_out = (data_in < 32'sd0)          ? 32'sd0 :         // Lower bound (0)
-                      (data_in > SIX_QUANTIZED)   ? SIX_QUANTIZED :  // Upper bound (6)
-                                                    data_in;         // Pass through
+    assign data_out = (data_in < 0)               ? 0 :
+                      (data_in > SIX_QUANTIZED)   ? SIX_QUANTIZED :
+                                                    data_in;
+
 endmodule

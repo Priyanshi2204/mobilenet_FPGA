@@ -1,15 +1,18 @@
 Vivado Simulator v2025.2
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
-Running: D:/Vivado/2025.2/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot weight_buffer_behav xil_defaultlib.weight_buffer xil_defaultlib.glbl -log elaborate.log 
+Running: D:/Vivado/2025.2/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot quantizer_behav xil_defaultlib.quantizer xil_defaultlib.glbl -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 72 differs from formal bit length 42 for port 'out1' [C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v:27]
 Completed static elaboration
 Starting simulation data flow analysis
-WARNING: [XSIM 43-4099] "C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/memory/weight_buffer.v" Line 1. Module weight_buffer doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v" Line 1. Module quantizer doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_48x24.v" Line 2. Module multiplier_48x24 doesn't have a timescale but at least one module in design has a timescale.
 Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.weight_buffer
+Compiling module xil_defaultlib.multiplier_48x24
+Compiling module xil_defaultlib.quantizer
 Compiling module xil_defaultlib.glbl
-Built simulation snapshot weight_buffer_behav
+Built simulation snapshot quantizer_behav
