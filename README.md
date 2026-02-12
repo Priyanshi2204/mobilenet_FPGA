@@ -18,8 +18,8 @@ The design is highly parameterised to balance throughput and resource utilisatio
 
 ### Architecture & Parallelism
 * **Kernel Size:** $3 \times 3$ (`KERNEL_SIZE = 3`)
-* **Parallel Channels (`PAR_CH`):** 16 (Input channels processed in parallel)
-* **Parallel Outputs (`PAR_OUT`):** 8 (Output filters processed in parallel)
+* **Parallel Channels (`PAR_CH`):** 4 (Input channels processed in parallel)
+* **Parallel Outputs (`PAR_OUT`):** 4 (Output filters processed in parallel)
 
 ### Memory & Image Capacity
 * **Max Dimensions:** $416 \times 416 \times 1024$ (W × H × Channels)
@@ -71,5 +71,6 @@ The RTL is organised into functional sub-directories to separate memory, compute
 │
 └── /multiplier                  # Defining the kind of multipliers
 |    ├── multiplier_32x16.v      # Multiplier for 32 bit x 16 bit
+
 
 
