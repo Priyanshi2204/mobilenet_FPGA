@@ -1,6 +1,6 @@
 # CNN Hardware Accelerator
 
-A high-performance, tiled CNN accelerator designed for FPGA/ASIC deployment. This architecture supports $3 \times 3$ convolutions with optimized dataflow and AXI4-compliant memory interfaces.
+A high-performance, tiled CNN accelerator designed for FPGA/ASIC deployment. This architecture supports $3 \times 3$ convolutions with optimised dataflow and AXI4-compliant memory interfaces.
 
 ## ⚙️ Hardware Parameters
 
@@ -9,12 +9,12 @@ The design is highly parameterised to balance throughput and resource utilisatio
 ### Data & Bus Widths
 | Parameter | Value | Description |
 | :--- | :--- | :--- |
-| `DATA_W` | 8 | Input/Weight bit-width |
-| `ACC_W` | 32 | Accumulator bit-width |
-| `SCALE_W` | 16 | Quantization scale bit-width |
+| `DATA_W` | 16 | Input/Weight bit-width fixed point (1 sign, 7 integer, 8 decimal) |
+| `ACC_W` | 48 | Accumulator bit-width |
+| `SCALE_W` | 24 | Quantization scale bit-width |
 | `ADDR_W` | 32 | Memory address bit-width |
-| `AXI_DATA_W` | 64 | External bus data width |
-| `AXI_STRB_W` | 8 | AXI strobe width |
+| `AXI_DATA_W` | 128 | External bus data width |
+| `AXI_STRB_W` | 16 | AXI strobe width |
 
 ### Architecture & Parallelism
 * **Kernel Size:** $3 \times 3$ (`KERNEL_SIZE = 3`)
@@ -31,7 +31,7 @@ The design is highly parameterised to balance throughput and resource utilisatio
 
 ## 📂 File Structure
 
-The RTL is organized into functional sub-directories to separate memory, compute, and control logic.
+The RTL is organised into functional sub-directories to separate memory, compute, and control logic.
 
 ```text
 /rtl                             # Top Level Directory
@@ -71,4 +71,5 @@ The RTL is organized into functional sub-directories to separate memory, compute
 │
 └── /multiplier                  # Defining the kind of multipliers
 |    ├── multiplier_32x16.v      # Multiplier for 32 bit x 16 bit
+
 
