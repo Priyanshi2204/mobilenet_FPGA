@@ -7,12 +7,4 @@ Starting static elaboration
 Pass Through NonSizing Optimizer
 WARNING: [VRFC 10-3091] actual bit length 72 differs from formal bit length 42 for port 'out1' [C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v:27]
 Completed static elaboration
-Starting simulation data flow analysis
-WARNING: [XSIM 43-4099] "C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v" Line 1. Module quantizer doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_48x24.v" Line 2. Module multiplier_48x24 doesn't have a timescale but at least one module in design has a timescale.
-Completed simulation data flow analysis
-Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.multiplier_48x24
-Compiling module xil_defaultlib.quantizer
-Compiling module xil_defaultlib.glbl
-Built simulation snapshot quantizer_behav
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
