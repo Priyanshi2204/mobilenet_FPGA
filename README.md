@@ -70,7 +70,10 @@ The RTL is organised into functional sub-directories to separate memory, compute
 |    └── axi_master_ofm.v         # DMA for Output Features
 │
 └── /multiplier                  # Defining the kind of multipliers
-|    ├── multiplier_32x16.v      # Multiplier for 32 bit x 16 bit
+|    ├── multiplier_32x16.v      # Multiplier for 32 bit x 16 bit signed
+|    ├── multiplier_48x24.v      # Multiplier for 48 bit x 24 bit signed
+
+
 
 
 
