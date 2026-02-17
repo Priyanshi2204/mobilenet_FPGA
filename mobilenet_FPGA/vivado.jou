@@ -45,3 +45,133 @@ source quantizer.tcl
 close_sim
 launch_simulation
 source quantizer.tcl
+close_sim
+launch_simulation
+source quantizer.tcl
+close_sim
+launch_simulation
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top adder_tree [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_aadya [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+launch_simulation
+source quantizer.tcl
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_aadya [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+launch_simulation
+launch_simulation
+launch_simulation
+export_ip_user_files -of_objects  [get_files C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/tb_aadya.v] -no_script -reset -force -quiet
+remove_files  C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/tb_aadya.v
+update_compile_order -fileset sources_1
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+add_files -fileset sim_1 -norecurse C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/tb_aadya.v
+update_compile_order -fileset sources_1
+launch_simulation
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top adder_tree [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+launch_simulation
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+update_compile_order -fileset sim_1
+close_sim
+launch_simulation
+source tb_aadya.tcl
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_aadya [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sim_1
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+source tb_aadya.tcl
+close_sim
+launch_simulation
+launch_simulation
+source tb_aadya.tcl
+close_sim
