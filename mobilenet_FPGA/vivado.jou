@@ -23,3 +23,25 @@
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/mobilenet_FPGA.xpr
+update_compile_order -fileset sources_1
+add_files -norecurse {C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/tb_priyanshi.v C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/tb_aadya.v}
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_aadya [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+launch_simulation
+source quantizer.tcl
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+close_sim
+launch_simulation
+source quantizer.tcl
+close_sim
+launch_simulation
+source quantizer.tcl
+close_sim
+launch_simulation
+source quantizer.tcl
