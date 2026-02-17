@@ -9,7 +9,7 @@ module layer_controller #(
     // Control
     //--------------------------------------------------
     input  wire start,
-    input  wire layer_done,   // from dma_controller
+    input  wire layer_done,
 
     //--------------------------------------------------
     // Outputs
@@ -35,14 +35,23 @@ module layer_controller #(
     reg [15:0] layer_Cout [0:MAX_LAYERS-1];
     reg [15:0] layer_H    [0:MAX_LAYERS-1];
     reg [15:0] layer_W    [0:MAX_LAYERS-1];
-
     reg [AXI_ADDR_W-1:0] layer_weight_addr [0:MAX_LAYERS-1];
 
     //--------------------------------------------------
-    // INIT (example)
+    // INIT ALL LAYERS (CRITICAL FIX)
     //--------------------------------------------------
+    integer i;
     initial begin
-        // Example layers
+        // Default values (avoid X)
+        for (i = 0; i < MAX_LAYERS; i = i + 1) begin
+            layer_Cin[i]  = 1;
+            layer_Cout[i] = 1;
+            layer_H[i]    = 1;
+            layer_W[i]    = 1;
+            layer_weight_addr[i] = 0;
+        end
+
+        // Override real layers
         layer_Cin[0]  = 3;
         layer_Cout[0] = 16;
         layer_H[0]    = 224;
@@ -63,7 +72,7 @@ module layer_controller #(
     reg pingpong;
 
     //--------------------------------------------------
-    // BUFFER BASE ADDRESSES (ON-CHIP)
+    // BUFFER ADDRESSES
     //--------------------------------------------------
     localparam BUFFER0_ADDR = 32'h8000_0000;
     localparam BUFFER1_ADDR = 32'h8100_0000;
@@ -131,13 +140,24 @@ module layer_controller #(
             all_done    <= 0;
             layer_idx   <= 0;
             pingpong    <= 0;
+
+            Cin <= 0;
+            Cout <= 0;
+            H <= 0;
+            W <= 0;
+            weight_addr <= 0;
+            ifm_addr <= 0;
+            ofm_addr <= 0;
+
         end else begin
 
+            // Default outputs (1-cycle pulses)
             layer_start <= 0;
             all_done    <= 0;
 
             case (state)
 
+                //--------------------------------------------------
                 IDLE: begin
                     layer_idx <= 0;
                     pingpong  <= 0;
@@ -149,22 +169,21 @@ module layer_controller #(
                     Cout<= layer_Cout[layer_idx];
                     H   <= layer_H[layer_idx];
                     W   <= layer_W[layer_idx];
-
                     weight_addr <= layer_weight_addr[layer_idx];
 
-                    // ping-pong addressing
-                    if (layer_idx == 0) begin
-                        ifm_addr <= 32'h0000_0000; // input image in DDR
-                    end else begin
+                    // IFM selection
+                    if (layer_idx == 0)
+                        ifm_addr <= 32'h0000_0000;
+                    else
                         ifm_addr <= (pingpong) ? BUFFER1_ADDR : BUFFER0_ADDR;
-                    end
 
+                    // OFM selection
                     ofm_addr <= (pingpong) ? BUFFER0_ADDR : BUFFER1_ADDR;
                 end
 
                 //--------------------------------------------------
                 START_LAYER: begin
-                    layer_start <= 1;
+                    layer_start <= 1; // one-cycle pulse
                 end
 
                 //--------------------------------------------------
@@ -179,7 +198,7 @@ module layer_controller #(
 
                 //--------------------------------------------------
                 DONE: begin
-                    all_done <= 1;
+                    all_done <= 1; // one-cycle pulse
                 end
 
             endcase

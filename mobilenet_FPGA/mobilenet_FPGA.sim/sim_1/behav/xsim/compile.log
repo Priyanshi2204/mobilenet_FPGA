@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/controller/tile_controller.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tile_controller
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/tb_aadya.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_aadya

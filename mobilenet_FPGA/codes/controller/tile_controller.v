@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module tile_controller #(
     parameter TILE_H = 16,
     parameter TILE_W = 8,
@@ -6,15 +8,12 @@ module tile_controller #(
     input  wire        clk,
     input  wire        rst,
 
-    // control
     input  wire        start,
     input  wire        tile_done,
 
-    // config
     input  wire [15:0] H,
     input  wire [15:0] W,
 
-    // outputs
     output reg         tile_start,
     output reg         all_done,
 
@@ -28,19 +27,38 @@ module tile_controller #(
     output reg [31:0]  ofm_base_addr
 );
 
-    // FSM states
-    localparam IDLE        = 3'd0;
-    localparam INIT        = 3'd1;
-    localparam START_TILE  = 3'd2;
-    localparam WAIT_DONE   = 3'd3;
-    localparam NEXT_TILE   = 3'd4;
-    localparam DONE        = 3'd5;
+    // FSM
+    localparam IDLE      = 3'd0;
+    localparam PREP      = 3'd1;
+    localparam ISSUE     = 3'd2;
+    localparam WAIT_DONE = 3'd3;
+    localparam UPDATE    = 3'd4;
+    localparam DONE      = 3'd5;
 
     reg [2:0] state, next_state;
 
-    // ------------------------------------------------
-    // STATE REGISTER
-    // ------------------------------------------------
+    //--------------------------------------------------
+    // Tile logic
+    //--------------------------------------------------
+    wire end_of_row = (tile_x + TILE_W >= W);
+    wire end_of_col = (tile_y + TILE_H >= H);
+    wire curr_last  = end_of_row && end_of_col;
+
+    reg [15:0] next_x, next_y;
+
+    always @(*) begin
+        if (end_of_row) begin
+            next_x = 0;
+            next_y = tile_y + TILE_H;
+        end else begin
+            next_x = tile_x + TILE_W;
+            next_y = tile_y;
+        end
+    end
+
+    //--------------------------------------------------
+    // State register
+    //--------------------------------------------------
     always @(posedge clk or posedge rst) begin
         if (rst)
             state <= IDLE;
@@ -48,115 +66,95 @@ module tile_controller #(
             state <= next_state;
     end
 
-    // ------------------------------------------------
-    // NEXT STATE LOGIC
-    // ------------------------------------------------
+    //--------------------------------------------------
+    // Next state
+    //--------------------------------------------------
     always @(*) begin
         next_state = state;
 
         case (state)
-            IDLE: begin
-                if (start)
-                    next_state = INIT;
-            end
+            IDLE:
+                if (start) next_state = PREP;
 
-            INIT: begin
-                next_state = START_TILE;
-            end
+            PREP:
+                next_state = ISSUE;
 
-            START_TILE: begin
+            ISSUE:
                 next_state = WAIT_DONE;
-            end
 
-            WAIT_DONE: begin
-                if (tile_done)
-                    next_state = NEXT_TILE;
-            end
+            WAIT_DONE:
+                if (tile_done) next_state = UPDATE;
 
-            NEXT_TILE: begin
-                if (last_tile)
+            UPDATE:
+                if (curr_last)
                     next_state = DONE;
                 else
-                    next_state = START_TILE;
-            end
+                    next_state = PREP;
 
-            DONE: begin
-                next_state = IDLE;
-            end
+            DONE:
+                if (!start) next_state = IDLE;
         endcase
     end
 
-    // ------------------------------------------------
-    // HELPER SIGNALS
-    // ------------------------------------------------
-    wire end_of_row;
-    wire end_of_col;
-
-    assign end_of_row = (tile_x + TILE_W >= W);
-    assign end_of_col = (tile_y + TILE_H >= H);
-
-    // ------------------------------------------------
-    // CONTROL LOGIC
-    // ------------------------------------------------
+    //--------------------------------------------------
+    // Output logic
+    //--------------------------------------------------
     always @(posedge clk or posedge rst) begin
         if (rst) begin
-            tile_start   <= 0;
-            all_done     <= 0;
-            tile_x       <= 0;
-            tile_y       <= 0;
-            first_tile   <= 0;
-            last_tile    <= 0;
+            tile_x <= 0;
+            tile_y <= 0;
+            tile_start <= 0;
+            all_done <= 0;
+            first_tile <= 0;
+            last_tile <= 0;
             ifm_base_addr <= 0;
             ofm_base_addr <= 0;
         end else begin
-            // default
+
             tile_start <= 0;
-            all_done   <= 0;
 
             case (state)
 
+                //----------------------------------
                 IDLE: begin
-                    tile_x     <= 0;
-                    tile_y     <= 0;
-                    first_tile <= 0;
-                    last_tile  <= 0;
-                end
-
-                INIT: begin
-                    tile_x     <= 0;
-                    tile_y     <= 0;
-                    first_tile <= 1;
-                    last_tile  <= (TILE_H >= H && TILE_W >= W);
-                end
-
-                START_TILE: begin
-                    tile_start <= 1;
-
-                    first_tile <= (tile_x == 0 && tile_y == 0);
-                    last_tile  <= (end_of_row && end_of_col);
-
-                    // compute base addresses
-                    ifm_base_addr <= ((tile_y * W) + tile_x) * DATA_BYTES;
-                    ofm_base_addr <= ((tile_y * W) + tile_x) * DATA_BYTES;
-                end
-
-                WAIT_DONE: begin
-                    // wait for tile_done
-                end
-
-                NEXT_TILE: begin
-                    if (!last_tile) begin
-                        if (end_of_row) begin
-                            // move to next row
-                            tile_x <= 0;
-                            tile_y <= tile_y + TILE_H;
-                        end else begin
-                            // move to next column
-                            tile_x <= tile_x + TILE_W;
-                        end
+                    if (start) begin
+                        tile_x <= 0;
+                        tile_y <= 0;
+                        all_done <= 0;
+                        first_tile <= 1;
                     end
                 end
 
+                //----------------------------------
+                PREP: begin
+                    // prepare outputs
+                    last_tile <= curr_last;
+
+                    ifm_base_addr <= ((tile_y * W) + tile_x) * DATA_BYTES;
+                    ofm_base_addr <= ((tile_y * W) + tile_x) * DATA_BYTES;
+
+                    if (!(tile_x == 0 && tile_y == 0))
+                        first_tile <= 0;
+                end
+
+                //----------------------------------
+                ISSUE: begin
+                    tile_start <= 1;
+                end
+
+                //----------------------------------
+                WAIT_DONE: begin
+                end
+
+                //----------------------------------
+                UPDATE: begin
+                    if (!curr_last) begin
+                        tile_x <= next_x;
+                        tile_y <= next_y;
+                    end
+                end
+
+                //----------------------------------
                 DONE: begin
                     all_done <= 1;
                 end

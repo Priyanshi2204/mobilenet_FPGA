@@ -1,7 +1,7 @@
 # compile verilog/system verilog design source files
 verilog xil_defaultlib  --include "D:/Vivado/2025.2/Vivado/data/rsb/busdef" \
-"../../../../codes/multiplier/multiplier_48x24.v" \
-"../../../../codes/compute/quantizer.v" \
+"../../../../codes/controller/tile_controller.v" \
+"../../../../codes/tb_aadya.v" \
 
 # compile glbl module
 verilog xil_defaultlib "glbl.v"

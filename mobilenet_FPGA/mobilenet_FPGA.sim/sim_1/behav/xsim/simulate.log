@@ -1,1 +1,96 @@
 Time resolution is 1 ps
+T=0 | start=0 tile_start=0 done=0 | x=0 y=0 first=0 last=0 all_done=0
+
+===============================
+TEST: H=16 W=8
+===============================
+
+T=55000 | start=1 tile_start=0 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=65000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=75000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=1 all_done=0
+T=85000 | start=0 tile_start=1 done=0 | x=0 y=0 first=1 last=1 all_done=0
+T=95000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=1 all_done=0
+T=115000 | start=0 tile_start=0 done=1 | x=0 y=0 first=1 last=1 all_done=0
+T=125000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=1 all_done=0
+T=145000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=1 all_done=1
+
+===============================
+TEST: H=16 W=32
+===============================
+
+T=165000 | start=1 tile_start=0 done=0 | x=0 y=0 first=1 last=1 all_done=0
+T=175000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=1 all_done=0
+T=185000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=195000 | start=0 tile_start=1 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=205000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=225000 | start=0 tile_start=0 done=1 | x=0 y=0 first=1 last=0 all_done=0
+T=235000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=245000 | start=0 tile_start=0 done=0 | x=8 y=0 first=1 last=0 all_done=0
+T=255000 | start=0 tile_start=0 done=0 | x=8 y=0 first=0 last=0 all_done=0
+T=265000 | start=0 tile_start=1 done=0 | x=8 y=0 first=0 last=0 all_done=0
+T=275000 | start=0 tile_start=0 done=0 | x=8 y=0 first=0 last=0 all_done=0
+T=295000 | start=0 tile_start=0 done=1 | x=8 y=0 first=0 last=0 all_done=0
+T=305000 | start=0 tile_start=0 done=0 | x=8 y=0 first=0 last=0 all_done=0
+T=315000 | start=0 tile_start=0 done=0 | x=16 y=0 first=0 last=0 all_done=0
+T=335000 | start=0 tile_start=1 done=0 | x=16 y=0 first=0 last=0 all_done=0
+T=345000 | start=0 tile_start=0 done=0 | x=16 y=0 first=0 last=0 all_done=0
+T=365000 | start=0 tile_start=0 done=1 | x=16 y=0 first=0 last=0 all_done=0
+T=375000 | start=0 tile_start=0 done=0 | x=16 y=0 first=0 last=0 all_done=0
+T=385000 | start=0 tile_start=0 done=0 | x=24 y=0 first=0 last=0 all_done=0
+T=395000 | start=0 tile_start=0 done=0 | x=24 y=0 first=0 last=1 all_done=0
+T=405000 | start=0 tile_start=1 done=0 | x=24 y=0 first=0 last=1 all_done=0
+T=415000 | start=0 tile_start=0 done=0 | x=24 y=0 first=0 last=1 all_done=0
+T=435000 | start=0 tile_start=0 done=1 | x=24 y=0 first=0 last=1 all_done=0
+T=445000 | start=0 tile_start=0 done=0 | x=24 y=0 first=0 last=1 all_done=0
+T=465000 | start=0 tile_start=0 done=0 | x=24 y=0 first=0 last=1 all_done=1
+
+===============================
+TEST: H=64 W=8
+===============================
+
+T=485000 | start=1 tile_start=0 done=0 | x=0 y=0 first=1 last=1 all_done=0
+T=495000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=1 all_done=0
+T=505000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=515000 | start=0 tile_start=1 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=525000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=545000 | start=0 tile_start=0 done=1 | x=0 y=0 first=1 last=0 all_done=0
+T=555000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=565000 | start=0 tile_start=0 done=0 | x=0 y=16 first=1 last=0 all_done=0
+T=575000 | start=0 tile_start=0 done=0 | x=0 y=16 first=0 last=0 all_done=0
+T=585000 | start=0 tile_start=1 done=0 | x=0 y=16 first=0 last=0 all_done=0
+T=595000 | start=0 tile_start=0 done=0 | x=0 y=16 first=0 last=0 all_done=0
+T=615000 | start=0 tile_start=0 done=1 | x=0 y=16 first=0 last=0 all_done=0
+T=625000 | start=0 tile_start=0 done=0 | x=0 y=16 first=0 last=0 all_done=0
+T=635000 | start=0 tile_start=0 done=0 | x=0 y=32 first=0 last=0 all_done=0
+T=655000 | start=0 tile_start=1 done=0 | x=0 y=32 first=0 last=0 all_done=0
+T=665000 | start=0 tile_start=0 done=0 | x=0 y=32 first=0 last=0 all_done=0
+T=685000 | start=0 tile_start=0 done=1 | x=0 y=32 first=0 last=0 all_done=0
+T=695000 | start=0 tile_start=0 done=0 | x=0 y=32 first=0 last=0 all_done=0
+T=705000 | start=0 tile_start=0 done=0 | x=0 y=48 first=0 last=0 all_done=0
+T=715000 | start=0 tile_start=0 done=0 | x=0 y=48 first=0 last=1 all_done=0
+T=725000 | start=0 tile_start=1 done=0 | x=0 y=48 first=0 last=1 all_done=0
+T=735000 | start=0 tile_start=0 done=0 | x=0 y=48 first=0 last=1 all_done=0
+T=755000 | start=0 tile_start=0 done=1 | x=0 y=48 first=0 last=1 all_done=0
+T=765000 | start=0 tile_start=0 done=0 | x=0 y=48 first=0 last=1 all_done=0
+T=785000 | start=0 tile_start=0 done=0 | x=0 y=48 first=0 last=1 all_done=1
+
+===============================
+TEST: H=32 W=32
+===============================
+
+T=805000 | start=1 tile_start=0 done=0 | x=0 y=0 first=1 last=1 all_done=0
+T=815000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=1 all_done=0
+T=825000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=835000 | start=0 tile_start=1 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=845000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=865000 | start=0 tile_start=0 done=1 | x=0 y=0 first=1 last=0 all_done=0
+T=875000 | start=0 tile_start=0 done=0 | x=0 y=0 first=1 last=0 all_done=0
+T=885000 | start=0 tile_start=0 done=0 | x=8 y=0 first=1 last=0 all_done=0
+T=895000 | start=0 tile_start=0 done=0 | x=8 y=0 first=0 last=0 all_done=0
+T=905000 | start=0 tile_start=1 done=0 | x=8 y=0 first=0 last=0 all_done=0
+T=915000 | start=0 tile_start=0 done=0 | x=8 y=0 first=0 last=0 all_done=0
+T=935000 | start=0 tile_start=0 done=1 | x=8 y=0 first=0 last=0 all_done=0
+T=945000 | start=0 tile_start=0 done=0 | x=8 y=0 first=0 last=0 all_done=0
+T=955000 | start=0 tile_start=0 done=0 | x=16 y=0 first=0 last=0 all_done=0
+T=975000 | start=0 tile_start=1 done=0 | x=16 y=0 first=0 last=0 all_done=0
+T=985000 | start=0 tile_start=0 done=0 | x=16 y=0 first=0 last=0 all_done=0
