@@ -3,10 +3,10 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Thu Feb 12 20:30:21 2026
-# Process ID         : 32644
+# Start of session at: Tue Feb 17 23:28:04 2026
+# Process ID         : 4252
 # Current directory  : C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA
-# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent32692 C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\mobilenet_FPGA.xpr
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent19812 C:\Users\aadya\Desktop\mobilenet_FPGA\mobilenet_FPGA\mobilenet_FPGA.xpr
 # Log file           : C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/vivado.log
 # Journal file       : C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA\vivado.jou
 # Running On         : epics2-iitgoa
@@ -17,23 +17,9 @@
 # CPU Physical cores : 10
 # CPU Logical cores  : 16
 # Host memory        : 16849 MB
-# Swap memory        : 10200 MB
-# Total Virtual      : 27049 MB
-# Available Virtual  : 10894 MB
+# Swap memory        : 12884 MB
+# Total Virtual      : 29734 MB
+# Available Virtual  : 14147 MB
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/mobilenet_FPGA.xpr
-update_compile_order -fileset sources_1
-add_files -norecurse C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_48x24.v
-update_compile_order -fileset sources_1
-launch_simulation
-source quantizer.tcl
-add_bp {C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v} 46
-remove_bps -file {C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v} -line 46
-add_bp {C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v} 46
-remove_bps -file {C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v} -line 46
-add_bp {C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v} 46
-remove_bps -file {C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v} -line 46
-add_bp {C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v} 46
-remove_bps -file {C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v} -line 46
-close_sim

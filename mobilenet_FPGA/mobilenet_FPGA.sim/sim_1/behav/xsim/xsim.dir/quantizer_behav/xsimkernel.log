@@ -1,7 +1,4 @@
-Running: xsim.dir/quantizer_behav/xsimk.exe -simmode gui -wdb quantizer_behav.wdb -simrunnum 0 -socket 50518
+Running: xsim.dir/quantizer_behav/xsimk.exe -simmode gui -wdb quantizer_behav.wdb -simrunnum 0 -socket 64859
 Design successfully loaded
-Design Loading Memory Usage: 10744 KB (Peak: 10744 KB)
-Design Loading CPU Usage: 15 ms
-Simulation completed
-Simulation Memory Usage: 11588 KB (Peak: 11588 KB)
-Simulation CPU Usage: 46 ms
+Design Loading Memory Usage: 10764 KB (Peak: 10764 KB)
+Design Loading CPU Usage: 124 ms

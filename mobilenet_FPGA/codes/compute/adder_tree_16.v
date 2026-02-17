@@ -1,16 +1,21 @@
 module adder_tree #(
-    parameter PAR   = 9,
+    parameter PAR   = 16,
     parameter ACC_W = 48
 )(
     input  wire clk,
     input  wire rst_n,
+    input  wire valid_in,
+
     input  wire signed [PAR*ACC_W-1:0] in_vec,
-    output reg  signed [ACC_W-1:0] sum_out
+
+    output reg  signed [ACC_W-1:0] sum_out,
+    output reg                     valid_out
 );
 
     // ---------------------------------------------------------
-    // Stage 0: Unpack inputs (combinational)
+    // Stage 0: Unpack inputs
     // ---------------------------------------------------------
+
     wire signed [ACC_W-1:0] stage0 [0:PAR-1];
 
     genvar i;
@@ -21,66 +26,85 @@ module adder_tree #(
     endgenerate
 
     // ---------------------------------------------------------
-    // Stage 1: 9 → 5
+    // Stage 1: PAR → PAR/2
     // ---------------------------------------------------------
-    reg signed [ACC_W-1:0] stage1 [0:4];
+
+    localparam STAGE1 = PAR / 2;
+    reg signed [ACC_W-1:0] stage1 [0:STAGE1-1];
+    reg valid_s1;
+
+    integer j;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            stage1[0] <= 0;
-            stage1[1] <= 0;
-            stage1[2] <= 0;
-            stage1[3] <= 0;
-            stage1[4] <= 0;
+            valid_s1 <= 0;
         end else begin
-            stage1[0] <= stage0[0] + stage0[1];
-            stage1[1] <= stage0[2] + stage0[3];
-            stage1[2] <= stage0[4] + stage0[5];
-            stage1[3] <= stage0[6] + stage0[7];
-            stage1[4] <= stage0[8]; // passthrough
+            for (j = 0; j < STAGE1; j = j + 1)
+                stage1[j] <= stage0[2*j] + stage0[2*j+1];
+
+            valid_s1 <= valid_in;
         end
     end
 
     // ---------------------------------------------------------
-    // Stage 2: 5 → 3
+    // Stage 2
     // ---------------------------------------------------------
-    reg signed [ACC_W-1:0] stage2 [0:2];
+
+    localparam STAGE2 = STAGE1 / 2;
+    reg signed [ACC_W-1:0] stage2 [0:STAGE2-1];
+    reg valid_s2;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            stage2[0] <= 0;
-            stage2[1] <= 0;
-            stage2[2] <= 0;
+            valid_s2 <= 0;
         end else begin
-            stage2[0] <= stage1[0] + stage1[1];
-            stage2[1] <= stage1[2] + stage1[3];
-            stage2[2] <= stage1[4]; // passthrough
+            for (j = 0; j < STAGE2; j = j + 1)
+                stage2[j] <= stage1[2*j] + stage1[2*j+1];
+
+            valid_s2 <= valid_s1;
         end
     end
 
     // ---------------------------------------------------------
-    // Stage 3: 3 → 2
+    // Stage 3
     // ---------------------------------------------------------
-    reg signed [ACC_W-1:0] stage3 [0:1];
+
+    localparam STAGE3 = STAGE2 / 2;
+    reg signed [ACC_W-1:0] stage3 [0:STAGE3-1];
+    reg valid_s3;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            stage3[0] <= 0;
-            stage3[1] <= 0;
+            valid_s3 <= 0;
         end else begin
-            stage3[0] <= stage2[0] + stage2[1];
-            stage3[1] <= stage2[2]; // passthrough
+            for (j = 0; j < STAGE3; j = j + 1)
+                stage3[j] <= stage2[2*j] + stage2[2*j+1];
+
+            valid_s3 <= valid_s2;
         end
     end
 
     // ---------------------------------------------------------
-    // Stage 4: 2 → 1 (Final)
+    // Stage 4 (Final)
     // ---------------------------------------------------------
+
+    reg valid_s4;
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            sum_out  <= 0;
+            valid_s4 <= 0;
+        end else begin
+            sum_out  <= stage3[0] + stage3[1];
+            valid_s4 <= valid_s3;
+        end
+    end
+
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n)
-            sum_out <= 0;
+            valid_out <= 0;
         else
-            sum_out <= stage3[0] + stage3[1];
+            valid_out <= valid_s4;
     end
 
 endmodule

@@ -2,7 +2,7 @@
 2020.2
 Nov 14 2025
 19:37:27
-C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v,1770908330,verilog,,,,quantizer,,,D:/Vivado/2025.2/Vivado/data/rsb/busdef,,,,,
+C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v,1771350519,verilog,,,,quantizer,,,D:/Vivado/2025.2/Vivado/data/rsb/busdef,,,,,
 C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/memory/weight_buffer.v,1770832089,verilog,,,,weight_buffer,,,D:/Vivado/2025.2/Vivado/data/rsb/busdef,,,,,
-C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_48x24.v,1770908309,verilog,,C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v,,multiplier_48x24,,,D:/Vivado/2025.2/Vivado/data/rsb/busdef,,,,,
+C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/multiplier/multiplier_48x24.v,1771350519,verilog,,C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/codes/compute/quantizer.v,,multiplier_48x24,,,D:/Vivado/2025.2/Vivado/data/rsb/busdef,,,,,
 C:/Users/aadya/Desktop/mobilenet_FPGA/mobilenet_FPGA/mobilenet_FPGA.sim/sim_1/behav/xsim/glbl.v,1756381829,verilog,,,,glbl,,,,,,,,
