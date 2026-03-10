@@ -2,139 +2,120 @@
 
 module tb_priyanshi;
 
-    // ============================================================
-    // Parameters
-    // ============================================================
-    parameter DATA_WIDTH   = 16;
-    parameter NUM_CHANNELS = 4;
+// ============================================================
+// Parameters
+// ============================================================
+parameter DATA_WIDTH = 16;
+parameter IMG_WIDTH  = 5;
 
-    // ============================================================
-    // DUT Signals
-    // ============================================================
-    reg clk;
-    reg rst_n;
+// ============================================================
+// Clock / Reset
+// ============================================================
+reg clk;
+reg rst_n;
 
-    reg  [DATA_WIDTH-1:0] in_ch0;
-    reg  [DATA_WIDTH-1:0] in_ch1;
-    reg  [DATA_WIDTH-1:0] in_ch2;
-    reg  [DATA_WIDTH-1:0] in_ch3;
-    reg                   in_valid;
-    wire                  in_ready;
+always #5 clk = ~clk;
 
-    wire [DATA_WIDTH-1:0] out_data;
-    wire                  out_valid;
-    reg                   out_ready;
+// ============================================================
+// Pixel stream
+// ============================================================
+reg [DATA_WIDTH-1:0] pixel_in;
+reg                  valid_in;
 
-    // ============================================================
-    // Instantiate DUT
-    // ============================================================
-    channel_interleaver #(
-        .DATA_WIDTH(DATA_WIDTH),
-        .NUM_CHANNELS(NUM_CHANNELS)
-    ) dut (
-        .clk(clk),
-        .rst_n(rst_n),
+// ============================================================
+// Line buffer outputs
+// ============================================================
+wire [DATA_WIDTH-1:0] row0, row1, row2;
+wire                  valid_lb;
+wire                  new_row;
 
-        .in_ch0(in_ch0),
-        .in_ch1(in_ch1),
-        .in_ch2(in_ch2),
-        .in_ch3(in_ch3),
-        .in_valid(in_valid),
-        .in_ready(in_ready),
+// ============================================================
+// Sliding window outputs
+// ============================================================
+wire [DATA_WIDTH-1:0] w00, w01, w02;
+wire [DATA_WIDTH-1:0] w10, w11, w12;
+wire [DATA_WIDTH-1:0] w20, w21, w22;
+wire                  valid_win;
 
-        .out_data(out_data),
-        .out_valid(out_valid),
-        .out_ready(out_ready)
-    );
+// ============================================================
+// Instantiate Line Buffer
+// ============================================================
+line_buffer #(
+    .DATA_WIDTH(DATA_WIDTH),
+    .IMG_WIDTH(IMG_WIDTH)
+) u_line_buffer (
+    .clk(clk),
+    .rst_n(rst_n),
+    .pixel_in(pixel_in),
+    .valid_in(valid_in),
+    .row0(row0),
+    .row1(row1),
+    .row2(row2),
+    .valid_out(valid_lb),
+    .new_row(new_row)
+);
 
-    // ============================================================
-    // Clock
-    // ============================================================
-    always #5 clk = ~clk;  // 100 MHz
+// ============================================================
+// Instantiate Sliding Window
+// ============================================================
+sliding_window #(
+    .DATA_WIDTH(DATA_WIDTH)
+) u_sliding_window (
+    .clk(clk),
+    .rst_n(rst_n),
+    .row0(row0),
+    .row1(row1),
+    .row2(row2),
+    .valid_in(valid_lb),
+    .new_row(new_row),
+    .w00(w00), .w01(w01), .w02(w02),
+    .w10(w10), .w11(w11), .w12(w12),
+    .w20(w20), .w21(w21), .w22(w22),
+    .valid_out(valid_win)
+);
 
-    // ============================================================
-    // Task: Send one pixel group
-    // ============================================================
-    task send_group(
-        input [15:0] c0,
-        input [15:0] c1,
-        input [15:0] c2,
-        input [15:0] c3
-    );
-    begin
+// ============================================================
+// Stimulus
+// ============================================================
+integer i;
+
+initial begin
+    clk = 0;
+    rst_n = 0;
+    valid_in = 0;
+    pixel_in = 0;
+
+    // Reset
+    #20;
+    rst_n = 1;
+
+    //----------------------------------------------------------
+    // Stream 5x5 image pixels (1 → 25)
+    //----------------------------------------------------------
+    for (i = 1; i <= 25; i = i + 1) begin
         @(posedge clk);
-        while (!in_ready) @(posedge clk);
-
-        in_ch0   <= c0;
-        in_ch1   <= c1;
-        in_ch2   <= c2;
-        in_ch3   <= c3;
-        in_valid <= 1'b1;
-
-        @(posedge clk);
-        in_valid <= 1'b0;
-    end
-    endtask
-
-    // ============================================================
-    // Monitor
-    // ============================================================
-    always @(posedge clk) begin
-        if (out_valid && out_ready) begin
-            $display("Time %0t → OUT = %0d",
-                     $time, out_data);
-        end
+        pixel_in <= i;
+        valid_in <= 1;
     end
 
-    // ============================================================
-    // Stimulus
-    // ============================================================
-    initial begin
-        clk = 0;
-        rst_n = 0;
-        in_valid = 0;
-        out_ready = 1;
+    @(posedge clk);
+    valid_in <= 0;
 
-        in_ch0 = 0;
-        in_ch1 = 0;
-        in_ch2 = 0;
-        in_ch3 = 0;
+    #500;
+    $finish;
+end
 
-        // Reset
-        #20;
-        rst_n = 1;
-
-        // =====================================================
-        // Test 1: Single group
-        // Expect: 10 20 30 40
-        // =====================================================
-        send_group(10, 20, 30, 40);
-
-        // Wait
-        #100;
-
-        // =====================================================
-        // Test 2: Back-to-back groups
-        // =====================================================
-        send_group(1, 2, 3, 4);
-        send_group(5, 6, 7, 8);
-
-        #100;
-
-        // =====================================================
-        // Test 3: Backpressure
-        // =====================================================
-        send_group(100, 200, 300, 400);
-
-        #10;
-        out_ready = 0;  // Stall downstream
-
-        #40;
-        out_ready = 1;  // Resume
-
-        #100;
-
-        $finish;
+// ============================================================
+// Window monitor
+// ============================================================
+always @(posedge clk) begin
+    if (valid_win) begin
+        $display("Time %0t", $time);
+        $display("[%0d %0d %0d]", w00, w01, w02);
+        $display("[%0d %0d %0d]", w10, w11, w12);
+        $display("[%0d %0d %0d]", w20, w21, w22);
+        $display("-------------------------");
     end
+end
 
 endmodule

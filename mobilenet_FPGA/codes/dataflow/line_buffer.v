@@ -15,7 +15,9 @@ module line_buffer #(
     output reg  [DATA_WIDTH-1:0]    row1,  // 1 row above
     output reg  [DATA_WIDTH-1:0]    row2,  // current row
 
-    output reg                      valid_out
+    output reg                      valid_out,
+    output reg new_row //added_integration
+
 );
 
     // ============================================================
@@ -67,8 +69,11 @@ module line_buffer #(
             //--------------------------------------------------
             // Update column pointer
             //--------------------------------------------------
+            new_row <= 0;   // added_integration
+
             if (col == IMG_WIDTH-1) begin
                 col <= 0;
+                new_row <= 1; //added_integration
 
                 if (row_cnt < 2)
                     row_cnt <= row_cnt + 1;
