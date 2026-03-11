@@ -113,7 +113,7 @@ module axi_master_ofm #(
                     next_state = WRITE;
 
             WRITE:
-                if (w_fire && wlast)
+                if (w_fire && (beat_cnt == BURST_LEN-1))
                     next_state = RESP;
 
             RESP:

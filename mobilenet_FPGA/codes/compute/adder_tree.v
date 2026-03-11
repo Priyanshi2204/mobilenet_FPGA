@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module adder_tree #(
     parameter PAR   = 9,
     parameter ACC_W = 48
@@ -8,79 +10,99 @@ module adder_tree #(
     output reg  signed [ACC_W-1:0] sum_out
 );
 
-    // ---------------------------------------------------------
-    // Stage 0: Unpack inputs (combinational)
-    // ---------------------------------------------------------
-    wire signed [ACC_W-1:0] stage0 [0:PAR-1];
+    //---------------------------------------------------------
+    // Input register (prevents X propagation)
+    //---------------------------------------------------------
+    reg signed [PAR*ACC_W-1:0] in_reg;
+
+    always @(posedge clk or negedge rst_n)
+    begin
+        if(!rst_n)
+            in_reg <= 0;
+        else
+            in_reg <= in_vec;
+    end
+
+    //---------------------------------------------------------
+    // Stage0 unpack
+    //---------------------------------------------------------
+    wire signed [ACC_W-1:0] s0 [0:PAR-1];
 
     genvar i;
     generate
-        for (i = 0; i < PAR; i = i + 1) begin : UNPACK
-            assign stage0[i] = in_vec[i*ACC_W +: ACC_W];
+        for(i=0;i<PAR;i=i+1)
+        begin : UNPACK
+            assign s0[i] = in_reg[i*ACC_W +: ACC_W];
         end
     endgenerate
 
-    // ---------------------------------------------------------
-    // Stage 1: 9 → 5
-    // ---------------------------------------------------------
-    reg signed [ACC_W-1:0] stage1 [0:4];
+    //---------------------------------------------------------
+    // Stage1 (9→5)
+    //---------------------------------------------------------
+    reg signed [ACC_W-1:0] s1 [0:4];
 
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            stage1[0] <= 0;
-            stage1[1] <= 0;
-            stage1[2] <= 0;
-            stage1[3] <= 0;
-            stage1[4] <= 0;
-        end else begin
-            stage1[0] <= stage0[0] + stage0[1];
-            stage1[1] <= stage0[2] + stage0[3];
-            stage1[2] <= stage0[4] + stage0[5];
-            stage1[3] <= stage0[6] + stage0[7];
-            stage1[4] <= stage0[8]; // passthrough
+    always @(posedge clk or negedge rst_n)
+    begin
+        if(!rst_n)
+        begin
+            s1[0]<=0; s1[1]<=0; s1[2]<=0; s1[3]<=0; s1[4]<=0;
+        end
+        else
+        begin
+            s1[0] <= s0[0] + s0[1];
+            s1[1] <= s0[2] + s0[3];
+            s1[2] <= s0[4] + s0[5];
+            s1[3] <= s0[6] + s0[7];
+            s1[4] <= s0[8];
         end
     end
 
-    // ---------------------------------------------------------
-    // Stage 2: 5 → 3
-    // ---------------------------------------------------------
-    reg signed [ACC_W-1:0] stage2 [0:2];
+    //---------------------------------------------------------
+    // Stage2 (5→3)
+    //---------------------------------------------------------
+    reg signed [ACC_W-1:0] s2 [0:2];
 
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            stage2[0] <= 0;
-            stage2[1] <= 0;
-            stage2[2] <= 0;
-        end else begin
-            stage2[0] <= stage1[0] + stage1[1];
-            stage2[1] <= stage1[2] + stage1[3];
-            stage2[2] <= stage1[4]; // passthrough
+    always @(posedge clk or negedge rst_n)
+    begin
+        if(!rst_n)
+        begin
+            s2[0]<=0; s2[1]<=0; s2[2]<=0;
+        end
+        else
+        begin
+            s2[0] <= s1[0] + s1[1];
+            s2[1] <= s1[2] + s1[3];
+            s2[2] <= s1[4];
         end
     end
 
-    // ---------------------------------------------------------
-    // Stage 3: 3 → 2
-    // ---------------------------------------------------------
-    reg signed [ACC_W-1:0] stage3 [0:1];
+    //---------------------------------------------------------
+    // Stage3 (3→2)
+    //---------------------------------------------------------
+    reg signed [ACC_W-1:0] s3 [0:1];
 
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            stage3[0] <= 0;
-            stage3[1] <= 0;
-        end else begin
-            stage3[0] <= stage2[0] + stage2[1];
-            stage3[1] <= stage2[2]; // passthrough
+    always @(posedge clk or negedge rst_n)
+    begin
+        if(!rst_n)
+        begin
+            s3[0]<=0; s3[1]<=0;
+        end
+        else
+        begin
+            s3[0] <= s2[0] + s2[1];
+            s3[1] <= s2[2];
         end
     end
 
-    // ---------------------------------------------------------
-    // Stage 4: 2 → 1 (Final)
-    // ---------------------------------------------------------
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n)
+    //---------------------------------------------------------
+    // Stage4 final
+    //---------------------------------------------------------
+    always @(posedge clk or negedge rst_n)
+    begin
+        if(!rst_n)
             sum_out <= 0;
         else
-            sum_out <= stage3[0] + stage3[1];
+            sum_out <= s3[0] + s3[1];
     end
 
 endmodule

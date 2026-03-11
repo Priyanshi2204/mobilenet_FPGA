@@ -1,5 +1,7 @@
-module adder_tree #(
-    parameter PAR   = 16,
+`timescale 1ns / 1ps
+//named as 16 but is made for 9 adders
+module adder_tree_16 #(
+    parameter PAR   = 9,
     parameter ACC_W = 48
 )(
     input  wire clk,
@@ -12,99 +14,108 @@ module adder_tree #(
     output reg                     valid_out
 );
 
-    // ---------------------------------------------------------
-    // Stage 0: Unpack inputs
-    // ---------------------------------------------------------
+    //---------------------------------------------------------
+    // Input register
+    //---------------------------------------------------------
+    reg signed [PAR*ACC_W-1:0] in_reg;
+    reg valid_s0;
 
-    wire signed [ACC_W-1:0] stage0 [0:PAR-1];
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            in_reg   <= 0;
+            valid_s0 <= 0;
+        end
+        else begin
+            in_reg   <= in_vec;
+            valid_s0 <= valid_in;
+        end
+    end
+
+    //---------------------------------------------------------
+    // Stage 0 unpack
+    //---------------------------------------------------------
+    wire signed [ACC_W-1:0] s0 [0:PAR-1];
 
     genvar i;
     generate
         for (i = 0; i < PAR; i = i + 1) begin : UNPACK
-            assign stage0[i] = in_vec[i*ACC_W +: ACC_W];
+            assign s0[i] = in_reg[i*ACC_W +: ACC_W];
         end
     endgenerate
 
-    // ---------------------------------------------------------
-    // Stage 1: PAR → PAR/2
-    // ---------------------------------------------------------
-
-    localparam STAGE1 = PAR / 2;
-    reg signed [ACC_W-1:0] stage1 [0:STAGE1-1];
+    //---------------------------------------------------------
+    // Stage1 (9 → 5)
+    //---------------------------------------------------------
+    reg signed [ACC_W-1:0] s1 [0:4];
     reg valid_s1;
-
-    integer j;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
+            s1[0]<=0; s1[1]<=0; s1[2]<=0; s1[3]<=0; s1[4]<=0;
             valid_s1 <= 0;
-        end else begin
-            for (j = 0; j < STAGE1; j = j + 1)
-                stage1[j] <= stage0[2*j] + stage0[2*j+1];
+        end
+        else begin
+            s1[0] <= s0[0] + s0[1];
+            s1[1] <= s0[2] + s0[3];
+            s1[2] <= s0[4] + s0[5];
+            s1[3] <= s0[6] + s0[7];
+            s1[4] <= s0[8];
 
-            valid_s1 <= valid_in;
+            valid_s1 <= valid_s0;
         end
     end
 
-    // ---------------------------------------------------------
-    // Stage 2
-    // ---------------------------------------------------------
-
-    localparam STAGE2 = STAGE1 / 2;
-    reg signed [ACC_W-1:0] stage2 [0:STAGE2-1];
+    //---------------------------------------------------------
+    // Stage2 (5 → 3)
+    //---------------------------------------------------------
+    reg signed [ACC_W-1:0] s2 [0:2];
     reg valid_s2;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
+            s2[0]<=0; s2[1]<=0; s2[2]<=0;
             valid_s2 <= 0;
-        end else begin
-            for (j = 0; j < STAGE2; j = j + 1)
-                stage2[j] <= stage1[2*j] + stage1[2*j+1];
+        end
+        else begin
+            s2[0] <= s1[0] + s1[1];
+            s2[1] <= s1[2] + s1[3];
+            s2[2] <= s1[4];
 
             valid_s2 <= valid_s1;
         end
     end
 
-    // ---------------------------------------------------------
-    // Stage 3
-    // ---------------------------------------------------------
-
-    localparam STAGE3 = STAGE2 / 2;
-    reg signed [ACC_W-1:0] stage3 [0:STAGE3-1];
+    //---------------------------------------------------------
+    // Stage3 (3 → 2)
+    //---------------------------------------------------------
+    reg signed [ACC_W-1:0] s3 [0:1];
     reg valid_s3;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
+            s3[0]<=0; s3[1]<=0;
             valid_s3 <= 0;
-        end else begin
-            for (j = 0; j < STAGE3; j = j + 1)
-                stage3[j] <= stage2[2*j] + stage2[2*j+1];
+        end
+        else begin
+            s3[0] <= s2[0] + s2[1];
+            s3[1] <= s2[2];
 
             valid_s3 <= valid_s2;
         end
     end
 
-    // ---------------------------------------------------------
-    // Stage 4 (Final)
-    // ---------------------------------------------------------
-
-    reg valid_s4;
-
+    //---------------------------------------------------------
+    // Final stage (2 → 1)
+    //---------------------------------------------------------
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            sum_out  <= 0;
-            valid_s4 <= 0;
-        end else begin
-            sum_out  <= stage3[0] + stage3[1];
-            valid_s4 <= valid_s3;
-        end
-    end
-
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n)
+            sum_out   <= 0;
             valid_out <= 0;
-        else
-            valid_out <= valid_s4;
+        end
+        else begin
+            sum_out   <= s3[0] + s3[1];
+            valid_out <= valid_s3;
+        end
     end
 
 endmodule
