@@ -1,5 +1,5 @@
 module mac_array #(
-    parameter PAR     = 16,
+    parameter PAR     = 9,
     parameter DATA_W  = 16,
     parameter ACC_W   = 48
 )(
@@ -41,8 +41,7 @@ module mac_array #(
         end
     endgenerate
 
-    // Since all lanes receive same valid_in,
-    // we propagate valid from lane 0
+    // propagate valid signal
     assign valid_out = valid_lane[0];
 
 endmodule

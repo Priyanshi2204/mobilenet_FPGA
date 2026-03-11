@@ -2,76 +2,87 @@
 
 module tb_priyanshi;
 
-parameter PAR   = 9;
-parameter ACC_W = 48;
+parameter PAR    = 9;
+parameter DATA_W = 16;
+parameter ACC_W  = 48;
 
 reg clk;
 reg rst_n;
 reg valid_in;
 
-reg  signed [PAR*ACC_W-1:0] in_vec;
+reg signed [PAR*DATA_W-1:0] data_vec;
+reg signed [PAR*DATA_W-1:0] weight_vec;
+reg signed [ACC_W-1:0] psum_in;
 
-wire signed [ACC_W-1:0] sum_out;
+wire signed [PAR*ACC_W-1:0] mac_out;
 wire valid_out;
 
 integer i;
 
-//--------------------------------------------------
 // DUT
-//--------------------------------------------------
-adder_tree_16 #(
+mac_array #(
     .PAR(PAR),
+    .DATA_W(DATA_W),
     .ACC_W(ACC_W)
 ) dut (
     .clk(clk),
     .rst_n(rst_n),
     .valid_in(valid_in),
-    .in_vec(in_vec),
-    .sum_out(sum_out),
+    .data_vec(data_vec),
+    .weight_vec(weight_vec),
+    .psum_in(psum_in),
+    .mac_out(mac_out),
     .valid_out(valid_out)
 );
 
 //--------------------------------------------------
-// Clock generation
+//Clock generation
 //--------------------------------------------------
+
 initial begin
     clk = 0;
     forever #5 clk = ~clk;   // 10ns clock
 end
 
 //--------------------------------------------------
-// Reset
+//Reset
 //--------------------------------------------------
+
 initial begin
     rst_n = 0;
     valid_in = 0;
-    in_vec = 0;
+    data_vec = 0;
+    weight_vec = 0;
+    psum_in = 0;
 
     #20;
     rst_n = 1;
 end
 
 //--------------------------------------------------
-// Test stimulus
+//Stimulus
 //--------------------------------------------------
-reg signed [ACC_W-1:0] inputs [0:PAR-1];
-reg signed [ACC_W-1:0] expected_sum;
+
+reg signed [DATA_W-1:0] data   [0:PAR-1];
+reg signed [DATA_W-1:0] weight [0:PAR-1];
+reg signed [ACC_W-1:0] expected [0:PAR-1];
 
 initial begin
 
     wait(rst_n);
 
-    //--------------------------------------------------
-    // Test 1
-    //--------------------------------------------------
+    psum_in = 10;
 
-    expected_sum = 0;
+    // Generate simple test values
+    for(i=0;i<PAR;i=i+1)
+    begin
+        data[i]   = i + 1;
+        weight[i] = i + 2;
 
-    for(i=0;i<PAR;i=i+1) begin
-        inputs[i] = i + 1;
-        expected_sum = expected_sum + inputs[i];
+        data_vec[i*DATA_W +: DATA_W]   = data[i];
+        weight_vec[i*DATA_W +: DATA_W] = weight[i];
 
-        in_vec[i*ACC_W +: ACC_W] = inputs[i];
+        expected[i] = data[i]*weight[i] + psum_in;
     end
 
     @(posedge clk);
@@ -83,24 +94,34 @@ initial begin
 end
 
 //--------------------------------------------------
-// Monitor
+//Output Check
 //--------------------------------------------------
+
 always @(posedge clk)
 begin
     if(valid_out)
     begin
-        $display("Time = %0t", $time);
-        $display("Expected Sum = %0d", expected_sum);
-        $display("Adder Tree Output = %0d", sum_out);
+        $display("\nMAC ARRAY OUTPUT:");
 
-        if(sum_out == expected_sum)
-            $display("TEST PASSED\n");
-        else
-            $display("TEST FAILED\n");
+        for(i=0;i<PAR;i=i+1)
+        begin
+            $display("Lane %0d -> Expected = %0d | Got = %0d",
+                     i,
+                     expected[i],
+                     mac_out[i*ACC_W +: ACC_W]);
+
+            if(mac_out[i*ACC_W +: ACC_W] == expected[i])
+                $display("PASS");
+            else
+                $display("FAIL");
+        end
     end
 end
 
 //--------------------------------------------------
+//Finish simulation
+//--------------------------------------------------
+
 initial begin
     #200;
     $finish;
