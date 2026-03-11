@@ -8,38 +8,34 @@ module mac_unit #(
 
     input  wire signed [DATA_W-1:0] data_in,
     input  wire signed [DATA_W-1:0] weight_in,
-    input  wire signed [ACC_W-1:0]  psum_in,
 
-    output reg  signed [ACC_W-1:0]  psum_out,
+    output reg  signed [ACC_W-1:0]  mac_out,
     output reg                      valid_out
 );
 
-    // --------------------------------------------------
+    //--------------------------------------------------
     // Stage 1: Register inputs
-    // --------------------------------------------------
+    //--------------------------------------------------
 
     reg signed [DATA_W-1:0] data_reg;
     reg signed [DATA_W-1:0] weight_reg;
-    reg signed [ACC_W-1:0]  psum_reg;
     reg                     valid_reg1;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            data_reg  <= 0;
-            weight_reg<= 0;
-            psum_reg  <= 0;
-            valid_reg1<= 0;
+            data_reg   <= 0;
+            weight_reg <= 0;
+            valid_reg1 <= 0;
         end else begin
             data_reg   <= data_in;
             weight_reg <= weight_in;
-            psum_reg   <= psum_in;
             valid_reg1 <= valid_in;
         end
     end
 
-    // --------------------------------------------------
+    //--------------------------------------------------
     // Stage 2: Multiply
-    // --------------------------------------------------
+    //--------------------------------------------------
 
     wire signed [2*DATA_W-1:0] mult_wire;
     assign mult_wire = data_reg * weight_reg;
@@ -57,20 +53,16 @@ module mac_unit #(
         end
     end
 
-    // --------------------------------------------------
-    // Stage 3: Accumulate
-    // --------------------------------------------------
+    //--------------------------------------------------
+    // Stage 3: Extend to ACC_W
+    //--------------------------------------------------
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            psum_out <= 0;
-            valid_out<= 0;
+            mac_out   <= 0;
+            valid_out <= 0;
         end else begin
-            if (valid_reg2)
-                psum_out <= psum_reg + {{(ACC_W-2*DATA_W){mult_reg[2*DATA_W-1]}}, mult_reg};
-            else
-                psum_out <= psum_reg;
-
+            mac_out   <= {{(ACC_W-2*DATA_W){mult_reg[2*DATA_W-1]}}, mult_reg};
             valid_out <= valid_reg2;
         end
     end
