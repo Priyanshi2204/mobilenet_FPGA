@@ -46,6 +46,8 @@ module line_buffer #(
             col       <= 0;
             row_cnt   <= 0;
             valid_out <= 0;
+            new_row   <= 0;   // add this
+
 
             row0 <= 0;
             row1 <= 0;

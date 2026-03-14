@@ -9,7 +9,7 @@ module mac_array #(
 
     input  wire signed [PAR*DATA_W-1:0] data_vec,
     input  wire signed [PAR*DATA_W-1:0] weight_vec,
-    input  wire signed [ACC_W-1:0]      psum_in,
+//    input  wire signed [ACC_W-1:0]      psum_in,
 
     output wire signed [PAR*ACC_W-1:0]  mac_out,
     output wire                         valid_out
@@ -32,9 +32,9 @@ module mac_array #(
 
                 .data_in   (data_vec [i*DATA_W +: DATA_W]),
                 .weight_in (weight_vec[i*DATA_W +: DATA_W]),
-                .psum_in   (psum_in),
+//                .psum_in   (psum_in),
 
-                .psum_out  (mac_out[i*ACC_W +: ACC_W]),
+                .mac_out  (mac_out[i*ACC_W +: ACC_W]),
                 .valid_out (valid_lane[i])
             );
 
@@ -42,6 +42,6 @@ module mac_array #(
     endgenerate
 
     // propagate valid signal
-    assign valid_out = valid_lane[0];
+    assign valid_out = valid_lane[PAR-1];
 
 endmodule
